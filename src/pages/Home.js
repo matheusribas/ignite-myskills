@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import {
   StyleSheet, Platform, 
   SafeAreaView, 
-  Text, TextInput, TouchableOpacity
+  Text, TextInput,
+  ScrollView,
+  FlatList,
  } from 'react-native';
 
 import { ButtonNewSkill } from '../components/ButtonNewSkill';
@@ -38,15 +40,17 @@ export function Home() {
       <Text style={[styles.title, { marginVertical: 50 }]}>
         Minhas Skills
       </Text>
-
-      {
-        mySkills.map(skill => (
+      
+      <FlatList 
+        data={mySkills}
+        keyExtractor={item => item}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
           <SkillCard 
-            key={skill} 
-            skill={skill}
+            skill={item}
           />
-        ))
-      }
+        )}
+      />
     </SafeAreaView>
   );
 };
