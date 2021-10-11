@@ -20,12 +20,18 @@ export function Home() {
   const [greeting, setGreeting] = useState('');
 
   function handleAddNewSkill() {
+    if (!newSkill) return;
+    
     const data = {
       id: String(new Date().getTime()),
       name: newSkill
-    }
-    setMySkills(oldState => [...oldState, data])
-    setNewSkill('')
+    };
+    setMySkills(oldState => [...oldState, data]);
+    setNewSkill('');
+  }
+
+  function handleRemoveSkill(id : string) {
+    setMySkills(oldState => oldState.filter(skill => skill.id !== id));
   }
 
   useEffect(() =>{
@@ -66,6 +72,7 @@ export function Home() {
         renderItem={({ item }) => (
           <SkillCard 
             skill={item.name}
+            onPress={_ => handleRemoveSkill(item.id)}
           />
         )}
       />
